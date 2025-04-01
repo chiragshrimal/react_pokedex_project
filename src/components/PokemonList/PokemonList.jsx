@@ -27,18 +27,29 @@ function PokemonList(){
 
     // always isi trh se data fetch karte hai
 
-    const [pokemonList,setpokemonList]=useState([]);
-    const [isLoading,setisLoading]=useState(true);
+    const [pokemonList,setPokemonList]=useState([]);
+    const [isLoading,setIsLoading]=useState(true);
 
-    const POKEDEX_URL="https://pokeapi.co/api/v2/pokemon";
+    const [preUrl,setPreUrl]=useState("");
+    const [nextUrl,setNextUrl]=useState("");
+
+    const [pokedexUrl,setPokedexUrl]=useState("https://pokeapi.co/api/v2/pokemon");
 
     async function  DownloadPokemon(){
+
+        //bacause jab bhi hme dubar call krna pdega tab isLoadding true hona chahiye 
+        setIsLoading(true);
         // this downloads list of 20 pokemons 
-        const response= await axios.get(POKEDEX_URL);
+        const response= await axios.get(pokedexUrl);
 
         // we get the array of pokemons from result
         const pokemonResults=response.data.results;
         console.log(response.data);
+
+        // store next and prev url 
+        // for the further pokemon and previous pokemon
+        setNextUrl(response.data.next);
+        setPreUrl(response.data.previous);
 
         // iterating over the array of pokemons , and using their url , 
         // to create an array of promises
@@ -62,13 +73,14 @@ function PokemonList(){
         });
 
         console.log(res);
-        setpokemonList(res);
-        setisLoading(false);
+        setPokemonList(res);
+        setIsLoading(false);
     }
 
+    // useEffect will call when pokedexUrl will change 
     useEffect(()=>{
         DownloadPokemon();
-    },[]);
+    },[pokedexUrl]);
     // sbse phle return call hoga 
     // uske baad useEffect execute hoga 
     return (
@@ -84,8 +96,8 @@ function PokemonList(){
 
             </div>
             <div className="controls">
-                <button>Prev</button>
-                <button>Next</button>
+                <button disabled={preUrl==null}  onClick={()=>setPokedexUrl(preUrl)}>Prev</button>
+                <button disabled={nextUrl==null}  onClick={()=>setPokedexUrl(nextUrl)}>Next</button>
             </div>
             
         </div>
