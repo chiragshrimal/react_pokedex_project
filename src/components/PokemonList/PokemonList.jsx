@@ -78,9 +78,16 @@ function PokemonList(){
         //     Y : {y} <button onClick={()=> setY(y+1)}>Dec</button>
         // </div>
         <div className="pokemone-list-wrapper">
-            <h1>List of Pokemons</h1>
             {/* and har pokemon ko uniquely identify krne ke liye key m pokemon ki id ko store kiya hai  */}
+            <div className="pokemon-wrapper">
             {(isLoading)? "loading....":pokemonList.map((poke)=><Pokemon name={poke.name} image={poke.image} key={poke.id}/>)}
+
+            </div>
+            <div className="controls">
+                <button>Prev</button>
+                <button>Next</button>
+            </div>
+            
         </div>
     )
 }
