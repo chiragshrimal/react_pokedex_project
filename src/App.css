@@ -1,0 +1,21 @@
+.outer-pokedex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#pokedex-heading{
+    margin:0 auto;
+    letter-spacing: 5px;
+    color: black;
+}
+
+.pokedex-name{
+    color: black;
+}
+/* for all the ancer tags ke liye  */
+/* a:visited{
+
+    color:black;
+} */

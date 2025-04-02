@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import Pokemon from "../pokemon/pokemon";
 import "./PokemonList.css";
 
+// this file main aim is to download all the pokemon 
+// and also align in good manner 
 function PokemonList(){
 
     // const [x,setX]=useState(0);
@@ -44,7 +46,7 @@ function PokemonList(){
 
         // we get the array of pokemons from result
         const pokemonResults=response.data.results;
-        console.log(response.data);
+        // console.log(response.data);
 
         // store next and prev url 
         // for the further pokemon and previous pokemon
@@ -59,7 +61,7 @@ function PokemonList(){
         // promises ko evaluate krne m time toh lgega 
         // array of object(pokemon details)
         const pokemonData= await axios.all(pokemonResultPromise);
-        console.log(pokemonData);
+        // console.log(pokemonData);
 
         // now iterate on the data of each pokemon, and extract id , name , image , types
         const res=pokemonData.map((pokeData)=>{
@@ -72,7 +74,7 @@ function PokemonList(){
             }
         });
 
-        console.log(res);
+        // console.log(res);
         setPokemonList(res);
         setIsLoading(false);
     }
@@ -92,7 +94,7 @@ function PokemonList(){
         <div className="pokemone-list-wrapper">
             {/* and har pokemon ko uniquely identify krne ke liye key m pokemon ki id ko store kiya hai  */}
             <div className="pokemon-wrapper">
-            {(isLoading)? "loading....":pokemonList.map((poke)=><Pokemon name={poke.name} image={poke.image} key={poke.id}/>)}
+            {(isLoading)? "loading....":pokemonList.map((poke)=><Pokemon name={poke.name} image={poke.image} id={poke.id} key={poke.id} />)}
 
             </div>
             <div className="controls">
