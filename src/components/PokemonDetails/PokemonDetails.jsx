@@ -2,11 +2,11 @@ import { useParams } from "react-router-dom"
 import "./PokemonDetails.css";
 import usePokemonDetails from "../../hooks/usePokemonDetails";
 
-function PokemonDetails(){
+function PokemonDetails({pokemonName}){
     // jab bhi ise call kiya jayega ye url mese se id nikal lega 
     const {id}=useParams();
     // console.log("id",id);
-    const[pokemon]=usePokemonDetails(id);
+    const[pokemon]=usePokemonDetails(id,pokemonName);
     // console.log("pokemonType : ", pokemon.types);
 
     return (

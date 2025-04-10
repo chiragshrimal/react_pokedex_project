@@ -7,13 +7,18 @@ import { useEffect, useState } from "react";
 
 // *************************************************************************
 // Hooks must be called at the top level of the component, not inside functions, conditionals, or loops.
-function usePokemonDetails(id){
+function usePokemonDetails(id,pokemonName){
 
     const [pokemon,setPokemon]=useState({});
 
     async function downloadPokemonDetails(){
-        const response=await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`);
-
+        try {
+            let response="";
+        if(pokemonName){
+            response=await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`);
+        }else{
+            response=await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`);
+        }
         // axios returns a promise object 
         const pokemonOfSameTypes= axios.get(`https://pokeapi.co/api/v2/type/${response.data.types ? response.data.types[0].type.name: ""}`)
 
@@ -41,6 +46,10 @@ function usePokemonDetails(id){
         //     ...state,
         //     type:response.data.types ? response.data.types[0].type.name: ""
         // }))
+        } catch (error) {
+            console.log("Something went wrong");
+        }
+        
     }
 
     // const[pokemonListState,setPokemonListState]=usePokemonList();
